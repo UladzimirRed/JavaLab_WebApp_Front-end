@@ -72,12 +72,12 @@ class TagsListComponent extends Component {
                                         <td>{tag.id}</td>
                                         <td>{tag.tagName}</td>
                                         <td>
-                                            <button className="btn btn-success"
+                                            <button className="btn btn-warning"
                                                     onClick={() => this.updateTagClicked(tag.id)}>Update
                                             </button>
                                         </td>
                                         <td>
-                                            <button className="btn btn-warning"
+                                            <button className="btn btn-danger"
                                                     onClick={() => this.deleteTagClicked(tag.id)}>Delete
                                             </button>
                                         </td>

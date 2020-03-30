@@ -3,7 +3,6 @@ import AuthorsListComponent from './author/AuthorsListComponent'
 import NewsListComponent from './news/NewsListComponent'
 import TagListComponent from './tag/TagsListComponent'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import ReactBootstrap, {Navbar, Button, FormControl, Form, Nav, FormGroup} from 'react-bootstrap'
 import AuthorsComponent from './author/AuthorsComponent'
 import EditNewsComponent from './news/EditNewsComponent'
 import NewsComponent from './news/NewsComponent'
@@ -13,12 +12,21 @@ import '../App.css'
 
 
 class InstructorApp extends Component {
+
+    handleSignOut = () => {
+        fetch("http://localhost:3000/sign", {
+            method: "get"
+        })
+    }
+
+
     render() {
+        const {history} = this.props
         return (
             <>
                 <header>
                     <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-                        <a className="navbar-brand" href="/">Home</a>
+                        <a className="navbar-brand" href="/news">Home</a>
                         <button className="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
                                 aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +44,9 @@ class InstructorApp extends Component {
                                     <a className="nav-link" href="/tags">Tags</a>
                                 </li>
                             </ul>
-                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Sign out</button>
+                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit"
+                                    onClick={() => window.location.assign('http://localhost:3000/sign/')}>Sign out
+                            </button>
                         </div>
                     </nav>
                 </header>
@@ -48,6 +58,7 @@ class InstructorApp extends Component {
                 <Router>
                     <Switch>
                         <Route path="/" exact component={SignInComponent}/>
+                        <Route path="/sign" exact component={SignInComponent}/>
                         <Route path="/authors" exact component={AuthorsListComponent}/>
                         <Route path="/authors/:id" component={AuthorsComponent}/>
                         <Route path="/news" exact component={NewsListComponent}/>

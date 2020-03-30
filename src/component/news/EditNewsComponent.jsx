@@ -13,8 +13,8 @@ class EditNewsComponent extends Component {
             fullText: '',
             creationDate: '',
             modificationDate: '',
-            authors: '',
-            tags: ''
+            authors: [],
+            tags: []
         }
 
         this.onSubmit = this.onSubmit.bind(this)

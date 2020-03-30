@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import React, {Component} from 'react'
+import {Formik, Form, Field, ErrorMessage} from 'formik';
 import AuthorDataService from '../../service/AuthorDataService';
 
 class AuthorComponent extends Component {
@@ -66,14 +66,14 @@ class AuthorComponent extends Component {
 
     render() {
 
-        let { authorSurname, authorName, id } = this.state
+        let {authorSurname, authorName, id} = this.state
 
         return (
             <div>
-                <h3>Author</h3>
+                <h3>Edit author</h3>
                 <div className="container">
                     <Formik
-                        initialValues={{ id, authorName, authorSurname }}
+                        initialValues={{id, authorName, authorSurname}}
                         onSubmit={this.onSubmit}
                         validateOnChange={false}
                         validateOnBlur={false}
@@ -84,18 +84,18 @@ class AuthorComponent extends Component {
                             (props) => (
                                 <Form>
                                     <ErrorMessage name="description" component="div"
-                                        className="alert alert-warning" />
+                                                  className="alert alert-warning"/>
                                     <fieldset className="form-group">
                                         <label>Id</label>
-                                        <Field className="form-control" type="text" name="id" disabled />
+                                        <Field className="form-control" type="text" name="id" disabled/>
                                     </fieldset>
                                     <fieldset className="form-group">
                                         <label>Name</label>
-                                        <Field className="form-control" type="text" name="name" />
+                                        <Field className="form-control" type="text" name="authorName"/>
                                     </fieldset>
                                     <fieldset className="form-group">
                                         <label>Surname</label>
-                                        <Field className="form-control" type="text" name="Surname" />
+                                        <Field className="form-control" type="text" name="authorSurname"/>
                                     </fieldset>
                                     <button className="btn btn-success" type="submit">Save</button>
                                 </Form>

@@ -12,8 +12,8 @@ class NewsComponent extends Component{
             fullText: '',
             creationDate: '',
             modificationDate: '',
-            // authors: '',
-            // tags: ''
+            authors: [],
+            tags: []
         }
 
         // this.onSubmit = this.onSubmit.bind(this)
@@ -37,8 +37,8 @@ class NewsComponent extends Component{
                 fullText: response.data.fullText,
                 creationDate: response.data.creationDate,
                 modificationDate: response.data.modificationDate,
-                // authors: response.data.authors,
-                // tags: response.data.tags
+                authors: response.data.authors,
+                tags: response.data.tags
             }))
     }
 

@@ -79,12 +79,12 @@ class AuthorsListComponent extends Component {
                                         <td>{authors.authorName}</td>
                                         <td>{authors.authorSurname}</td>
                                         <td>
-                                            <button className="btn btn-success"
+                                            <button className="btn btn-warning"
                                                     onClick={() => this.updateAuthorClicked(authors.id)}>Update
                                             </button>
                                         </td>
                                         <td>
-                                            <button className="btn btn-warning"
+                                            <button className="btn btn-danger"
                                                     onClick={() => this.deleteAuthorClicked(authors.id)}>Delete
                                             </button>
                                         </td>

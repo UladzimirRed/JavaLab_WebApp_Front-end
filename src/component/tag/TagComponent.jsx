@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import React, {Component} from 'react'
+import {Formik, Form, Field, ErrorMessage} from 'formik';
 import TagDataService from '../../service/TagDataService';
 
 class TagComponent extends Component {
@@ -63,14 +63,14 @@ class TagComponent extends Component {
 
     render() {
 
-        let { tagName, id } = this.state
+        let {tagName, id} = this.state
 
         return (
             <div>
-                <h3>Tag</h3>
+                <h3>Edit tag</h3>
                 <div className="container">
                     <Formik
-                        initialValues={{ id, tagName }}
+                        initialValues={{id, tagName}}
                         onSubmit={this.onSubmit}
                         validateOnChange={false}
                         validateOnBlur={false}
@@ -81,14 +81,14 @@ class TagComponent extends Component {
                             (props) => (
                                 <Form>
                                     <ErrorMessage name="description" component="div"
-                                                  className="alert alert-warning" />
+                                                  className="alert alert-warning"/>
                                     <fieldset className="form-group">
                                         <label>Id</label>
-                                        <Field className="form-control" type="text" name="id" disabled />
+                                        <Field className="form-control" type="text" name="id" disabled/>
                                     </fieldset>
                                     <fieldset className="form-group">
                                         <label>Tag Name</label>
-                                        <Field className="form-control" type="text" name="tagName" />
+                                        <Field className="form-control" type="text" name="tagName"/>
                                     </fieldset>
                                     <button className="btn btn-success" type="submit">Save</button>
                                 </Form>

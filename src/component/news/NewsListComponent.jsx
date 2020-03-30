@@ -45,7 +45,7 @@ class NewsListComponent extends Component {
 
     openNewsClicked(id) {
         // FIXME
-        // this.props.history.get(`/news/${id}`)
+        this.props.history.push(`/news/${id}`)
     }
 
     updateNewsClicked(id) {
