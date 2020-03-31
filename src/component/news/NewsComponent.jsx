@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import NewsDataService from "../../service/NewsDataService";
 
-class NewsComponent extends Component{
+class NewsComponent extends Component {
     constructor(props) {
         super(props)
 
@@ -12,17 +12,14 @@ class NewsComponent extends Component{
             fullText: '',
             creationDate: '',
             modificationDate: '',
-            authors: [],
+            author: [],
             tags: []
         }
-
-        // this.onSubmit = this.onSubmit.bind(this)
-        // this.validate = this.validate.bind(this)
-
+        this.updateNewsClicked = this.updateNewsClicked.bind(this)
+        this.goBack = this.goBack.bind(this)
     }
 
     componentDidMount() {
-
         console.log(this.state.id)
 
         // eslint-disable-next-line
@@ -37,22 +34,51 @@ class NewsComponent extends Component{
                 fullText: response.data.fullText,
                 creationDate: response.data.creationDate,
                 modificationDate: response.data.modificationDate,
-                authors: response.data.authors,
+                author: response.data.author,
                 tags: response.data.tags
             }))
     }
 
+    updateNewsClicked(id) {
+        console.log('update ' + id)
+        this.props.history.push(`/newses/${id}`)
+    }
+
+    goBack(){
+        this.props.history.goBack();
+    }
+
     render() {
 
+        let {tags, author, modificationDate, creationDate, fullText, shortText, title, id} = this.state
+        const tagList = tags.map(tag => <li>#{tag.id} - {tag.tagName}</li>),
+            currentAuthor = author.map(auth => <li>{auth.authorName} {auth.authorSurname}</li>)
+
         return (
-            <div className="container">
-                <h3>News</h3>
+            <div>
                 <div className="container">
-                    <h4>{this.state.title}</h4>
-                    <h5>{this.state.shortText}</h5>
-                    <h6>{this.state.fullText}</h6>
-                    <h6>{this.state.creationDate}</h6>
-                    <h6>{this.state.modificationDate}</h6>
+                    <label>Title:</label>
+                    <h4>{title}</h4>
+                    <label>Short text:</label>
+                    <h5>{shortText}</h5>
+                    <label>Full text:</label>
+                    <h6>{fullText}</h6>
+                    <label>Creation date:</label>
+                    <h6>{new Date(creationDate).toString()}</h6>
+                    <label>Modification date:</label>
+                    <h6>{new Date(modificationDate).toString()}</h6>
+                    <label>Author:</label>
+                    <h6>{currentAuthor}</h6>
+                    <label>Tags list:</label>
+                    <h6>{tagList}</h6>
+                    <br/>
+                    <br/>
+                    <button className="btn btn-warning"
+                            onClick={() => this.updateNewsClicked(id)}>Update
+                    </button>
+                    <br/>
+                    <br/>
+                    <button type="submit" className="btn btn-primary" onClick={this.goBack}>Back</button>
                 </div>
                 <br/>
                 <br/>

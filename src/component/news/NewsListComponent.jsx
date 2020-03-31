@@ -12,6 +12,7 @@ class NewsListComponent extends Component {
         this.updateNewsClicked = this.updateNewsClicked.bind(this)
         this.addNewsClicked = this.addNewsClicked.bind(this)
         this.refreshNews = this.refreshNews.bind(this)
+        this.goBack = this.goBack.bind(this)
     }
 
     componentDidMount() {
@@ -22,7 +23,7 @@ class NewsListComponent extends Component {
         NewsDataService.retrieveAllNews()//HARDCODED
             .then(
                 response => {
-                    //console.log(response);
+                    console.log(response);
                     this.setState({news: response.data})
                 }
             )
@@ -40,17 +41,20 @@ class NewsListComponent extends Component {
     }
 
     addNewsClicked() {
-        this.props.history.push(`/news/-1`)
+        this.props.history.push(`/newses/-1`)
     }
 
     openNewsClicked(id) {
-        // FIXME
         this.props.history.push(`/news/${id}`)
     }
 
     updateNewsClicked(id) {
         console.log('update ' + id)
-        this.props.history.push(`/news/${id}`)
+        this.props.history.push(`/newses/${id}`)
+    }
+
+    goBack(){
+        this.props.history.goBack();
     }
 
     render() {
@@ -58,6 +62,9 @@ class NewsListComponent extends Component {
         return (
             <div className="container">
                 <h3>All news</h3>
+                <span>sorted by editing</span>
+                <br/>
+                <br/>
                 {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
                 <div className="container">
                     <table className="table">
@@ -73,7 +80,7 @@ class NewsListComponent extends Component {
                         </thead>
                         <tbody>
                         {
-                            this.state.news.map(
+                            this.state.news.sort((a, b) => b.modificationDate - a.modificationDate).map(
                                 news =>
                                     <tr key={news.id}>
                                         <td>{news.id}</td>
@@ -99,8 +106,11 @@ class NewsListComponent extends Component {
                         }
                         </tbody>
                     </table>
-                    <div className="row">
-                        <button className="btn btn-success" onClick={this.addNewsClicked}>Add</button>
+                    <div className="mb-2">
+                        <button type="submit" className="btn btn-success" onClick={this.addNewsClicked}>Add</button>
+                        <br/>
+                        <br/>
+                        <button type="submit" className="btn btn-primary" onClick={this.goBack}>Back</button>
                     </div>
                     <br/>
                     <br/>

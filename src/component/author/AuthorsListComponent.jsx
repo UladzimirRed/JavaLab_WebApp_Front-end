@@ -23,13 +23,8 @@ class AuthorsListComponent extends Component {
         AuthorDataService.retrieveAllAuthors()//HARDCODED
             .then(
                 response => {
-                    if (response.status=== 200) console.log('utf-jnjhhb',response);
-
                     this.setState({authors: response.data})
                 }
-            )
-            .catch(
-                error => console.log(error.data)
             )
     }
 
@@ -72,7 +67,7 @@ class AuthorsListComponent extends Component {
                         </thead>
                         <tbody>
                         {
-                            this.state.authors.map(
+                            this.state.authors.sort((a,b) => a.id - b.id).map(
                                 authors =>
                                     <tr key={authors.id}>
                                         <td>{authors.id}</td>

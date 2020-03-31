@@ -13,20 +13,19 @@ class EditNewsComponent extends Component {
             fullText: '',
             creationDate: '',
             modificationDate: '',
-            authors: [],
+            author: [],
             tags: []
         }
 
         this.onSubmit = this.onSubmit.bind(this)
-        // this.validate = this.validate.bind(this)
-
+        this.validate = this.validate.bind(this)
+        // this.goBack = this.goBack.bind(this)
     }
 
     componentDidMount() {
 
         console.log(this.state.id)
 
-        // eslint-disable-next-line
         if (this.state.id == -1) {
             return
         }
@@ -38,22 +37,20 @@ class EditNewsComponent extends Component {
                 fullText: response.data.fullText,
                 creationDate: response.data.creationDate,
                 modificationDate: response.data.modificationDate,
-                authors: response.data.authors,
+                author: response.data.author,
                 tags: response.data.tags
             }))
     }
 
-    // validate(values) {
-    //     let errors = {}
-    //     if (!values.description) {
-    //         errors.description = 'Enter a Description'
-    //     } else if (values.description.length < 5) {
-    //         errors.description = 'Enter atleast 5 Characters in Description'
-    //     }
-    //
-    //     return errors
-    //
-    // }
+    validate(values) {
+        let errors = {}
+        if (!values.title) {
+            errors.title = 'Enter a Description'
+        } else if (values.title.length < 5) {
+            errors.title = 'Enter atleast 5 Characters in Description'
+        }
+        return errors
+    }
 
     onSubmit(values) {
 
@@ -64,35 +61,45 @@ class EditNewsComponent extends Component {
             fullText: values.fullText,
             creationDate: values.creationDate,
             modificationDate: values.modificationDate,
-            authors: values.authors,
+            author: values.author,
             tags: values.tags
         }
 
         if (this.state.id === -1) {
+            news.creationDate = new Date().getMilliseconds()
+            news.modificationDate = new Date().getMilliseconds()
             NewsDataService.createNews(news)
-                .then(() => this.props.history.push('/news'))
+                .then(() => this.props.history.push('/newses'))
         } else {
+            news.modificationDate = new Date().getMilliseconds()
             NewsDataService.updateNews(this.state.id, news)
-                .then(() => this.props.history.push('/news'))
+                .then(() => this.props.history.push('/newses'))
         }
-
         console.log(values);
+    }
+
+    goBack() {
+        this.props.history.goBack();
     }
 
     render() {
 
-        let {tags, authors, modificationDate, creationDate, fullText, shortText, title, id} = this.state
+        let {tags, author, creationDate, fullText, shortText, title, id} = this.state
+        const tagsList = tags.map(tag => <li>{tag.id} - {tag.tagName}</li>)
+        const currentAuthor = author.map(auth => <li>{auth.authorName} {auth.authorSurname}</li>)
+        const formatCreationDate = new Date(creationDate).toString()
+
 
         return (
             <div>
                 <h3>Edit news</h3>
                 <div className="container">
                     <Formik
-                        initialValues={{id, title, shortText, fullText, creationDate, modificationDate, authors, tags}}
+                        initialValues={{id, title, shortText, fullText, formatCreationDate, author, tags}}
                         onSubmit={this.onSubmit}
                         validateOnChange={false}
                         validateOnBlur={false}
-                        // validate={this.validate}
+                        validate={this.validate}
                         enableReinitialize={true}
                     >
                         {
@@ -118,21 +125,21 @@ class EditNewsComponent extends Component {
                                     </fieldset>
                                     <fieldset className="form-group">
                                         <label>Creation Date</label>
-                                        <Field className="form-control" type="text" name="creationDate"/>
+                                        <Field className="form-control" type="text" name="formatCreationDate" disabled/>
                                     </fieldset>
                                     <fieldset className="form-group">
-                                        <label>Modification Date</label>
-                                        <Field className="form-control" type="text" name="modificationDate"/>
-                                    </fieldset>
-                                    <fieldset className="form-group">
-                                        <label>Authors</label>
-                                        <Field className="form-control" type="text" name="authors"/>
+                                        <label>Author:</label>
+                                        <ul>{currentAuthor}</ul>
                                     </fieldset>
                                     <fieldset className="form-group">
                                         <label>Tags</label>
-                                        <Field className="form-control" type="text" name="tags"/>
+                                        <ul>{tagsList}</ul>
                                     </fieldset>
                                     <button className="btn btn-success" type="submit">Save</button>
+                                    <br/>
+                                    <br/>
+                                    <button type="submit" className="btn btn-primary" onClick={() => this.goBack()}>Back
+                                    </button>
                                 </Form>
                             )
                         }
