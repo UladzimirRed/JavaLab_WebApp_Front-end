@@ -3,3 +3,8 @@
 .navbar-color {
     color: white !important;
 }
+
+.demoForm {
+    width: 500px;
+    margin: auto;
+}

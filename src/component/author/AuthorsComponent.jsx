@@ -1,8 +1,7 @@
-import React, {Component} from 'react'
-import {Formik, Form, Field, ErrorMessage} from 'formik';
-import AuthorDataService from '../../service/AuthorDataService';
+import React, {Component} from "react";
+import AuthorDataService from "../../service/AuthorDataService";
 
-class AuthorComponent extends Component {
+class AuthorsComponent extends Component {
     constructor(props) {
         super(props)
 
@@ -11,14 +10,11 @@ class AuthorComponent extends Component {
             authorName: '',
             authorSurname: ''
         }
-
-        this.onSubmit = this.onSubmit.bind(this)
-        // this.validate = this.validate.bind(this)
-
+        this.updateAuthorsClicked = this.updateAuthorsClicked.bind(this)
+        this.goBack = this.goBack.bind(this)
     }
 
     componentDidMount() {
-
         console.log(this.state.id)
 
         // eslint-disable-next-line
@@ -33,35 +29,13 @@ class AuthorComponent extends Component {
             }))
     }
 
-    // validate(values) {
-    //     let errors = {}
-    //     if (!values.description) {
-    //         errors.description = 'Enter a Description'
-    //     } else if (values.description.length < 5) {
-    //         errors.description = 'Enter atleast 5 Characters in Description'
-    //     }
-    //
-    //     return errors
-    //
-    // }
+    updateAuthorsClicked(id) {
+        console.log('update ' + id)
+        this.props.history.push(`/authors/${id}`)
+    }
 
-    onSubmit(values) {
-
-        let author = {
-            id: this.state.id,
-            authorName: values.authorName,
-            authorSurname: values.authorSurname
-        }
-
-        if (this.state.id === -1) {
-            AuthorDataService.createAuthor(author)
-                .then(() => this.props.history.push('/authors'))
-        } else {
-            AuthorDataService.updateAuthor(this.state.id, author)
-                .then(() => this.props.history.push('/authors'))
-        }
-
-        console.log(values);
+    goBack() {
+        this.props.history.goBack();
     }
 
     render() {
@@ -70,43 +44,28 @@ class AuthorComponent extends Component {
 
         return (
             <div>
-                <h3>Edit author</h3>
                 <div className="container">
-                    <Formik
-                        initialValues={{id, authorName, authorSurname}}
-                        onSubmit={this.onSubmit}
-                        validateOnChange={false}
-                        validateOnBlur={false}
-                        // validate={this.validate}
-                        enableReinitialize={true}
-                    >
-                        {
-                            (props) => (
-                                <Form>
-                                    <ErrorMessage name="description" component="div"
-                                                  className="alert alert-warning"/>
-                                    <fieldset className="form-group">
-                                        <label>Id</label>
-                                        <Field className="form-control" type="text" name="id" disabled/>
-                                    </fieldset>
-                                    <fieldset className="form-group">
-                                        <label>Name</label>
-                                        <Field className="form-control" type="text" name="authorName"/>
-                                    </fieldset>
-                                    <fieldset className="form-group">
-                                        <label>Surname</label>
-                                        <Field className="form-control" type="text" name="authorSurname"/>
-                                    </fieldset>
-                                    <button className="btn btn-success" type="submit">Save</button>
-                                </Form>
-                            )
-                        }
-                    </Formik>
-
+                    <h4>Author:</h4>
+                    <label>Name:</label>
+                    <h4>{authorName}</h4>
+                    <label>Surname:</label>
+                    <h5>{authorSurname}</h5>
+                    <br/>
+                    <br/>
+                    <button className="btn btn-warning"
+                            onClick={() => this.updateAuthorsClicked(id)}>Update
+                    </button>
+                    <br/>
+                    <br/>
+                    <button type="submit" className="btn btn-primary" onClick={this.goBack}>Back</button>
                 </div>
+                <br/>
+                <br/>
+                <br/>
             </div>
+
         )
     }
 }
 
-export default AuthorComponent
+export default AuthorsComponent

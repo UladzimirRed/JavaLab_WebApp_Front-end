@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Formik, Form, Field, ErrorMessage} from 'formik';
+import {ErrorMessage, Field, Form, Formik} from 'formik';
 import AuthorDataService from '../../service/AuthorDataService';
 
 class AuthorComponent extends Component {
@@ -64,6 +64,10 @@ class AuthorComponent extends Component {
         console.log(values);
     }
 
+    goBack() {
+        this.props.history.goBack();
+    }
+
     render() {
 
         let {authorSurname, authorName, id} = this.state
@@ -98,6 +102,10 @@ class AuthorComponent extends Component {
                                         <Field className="form-control" type="text" name="authorSurname"/>
                                     </fieldset>
                                     <button className="btn btn-success" type="submit">Save</button>
+                                    <br/>
+                                    <br/>
+                                    <button type="submit" className="btn btn-primary" onClick={() => this.goBack()}>Back
+                                    </button>
                                 </Form>
                             )
                         }

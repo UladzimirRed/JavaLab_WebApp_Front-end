@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Formik, Form, Field, ErrorMessage} from 'formik';
+import {ErrorMessage, Field, Form, Formik} from 'formik';
 import NewsDataService from '../../service/NewsDataService';
 
 class EditNewsComponent extends Component {
@@ -19,7 +19,6 @@ class EditNewsComponent extends Component {
 
         this.onSubmit = this.onSubmit.bind(this)
         this.validate = this.validate.bind(this)
-        // this.goBack = this.goBack.bind(this)
     }
 
     componentDidMount() {
@@ -138,7 +137,8 @@ class EditNewsComponent extends Component {
                                     <button className="btn btn-success" type="submit">Save</button>
                                     <br/>
                                     <br/>
-                                    <button type="submit" className="btn btn-primary" onClick={() => this.goBack()}>Back
+                                    <button type="submit" className="btn btn-primary"
+                                            onClick={() => this.goBack()}>Back
                                     </button>
                                 </Form>
                             )

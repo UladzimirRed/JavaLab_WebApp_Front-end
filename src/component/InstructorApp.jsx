@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
-import AuthorsListComponent from './author/AuthorsListComponent'
-import EditAuthorComponent from './author/EditAuthorComponent'
-import NewsListComponent from './news/NewsListComponent'
-import TagListComponent from './tag/TagsListComponent'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import AuthorsComponent from './author/AuthorsComponent'
-import EditNewsComponent from './news/EditNewsComponent'
+import AuthorsListComponent from './author/AuthorsListComponent'
+import EditAuthorComponent from './author/EditAuthorComponent'
 import NewsComponent from './news/NewsComponent'
+import NewsListComponent from './news/NewsListComponent'
+import EditNewsComponent from './news/EditNewsComponent'
 import TagComponent from './tag/TagComponent'
+import TagListComponent from './tag/TagsListComponent'
 import EditTagComponent from './tag/EditTagComponent'
-import SignInComponent from './SignInComponent'
+import LoginFormComponent from './LoginFormComponent'
 import '../App.css'
 
 
@@ -40,7 +40,7 @@ class InstructorApp extends Component {
                                 </li>
                             </ul>
                             <button className="btn btn-outline-success my-2 my-sm-0" type="submit"
-                                    onClick={() => window.location.assign('http://localhost:3000/sign')}>Sign out
+                                    onClick={() => window.location.assign('/')}>Sign out
                             </button>
                         </div>
                     </nav>
@@ -52,14 +52,15 @@ class InstructorApp extends Component {
 
                 <Router>
                     <Switch>
-                        <Route path="/" exact component={SignInComponent}/>
+                        <Route path="/" exact component={LoginFormComponent}/>
                         <Route path="/authors" exact component={AuthorsListComponent}/>
                         <Route path="/authors/:id" component={EditAuthorComponent}/>
+                        <Route path="/author/:id" component={AuthorsComponent}/>
                         <Route path="/newses" exact component={NewsListComponent}/>
                         <Route path="/news/:id" exact component={NewsComponent}/>
                         <Route path="/newses/:id" component={EditNewsComponent}/>
                         <Route path="/tags" exact component={TagListComponent}/>
-                        <Route path="/tag" exact component={TagComponent}/>
+                        <Route path="/tag/:id" exact component={TagComponent}/>
                         <Route path="/tags/:id" component={EditTagComponent}/>
                     </Switch>
                 </Router>

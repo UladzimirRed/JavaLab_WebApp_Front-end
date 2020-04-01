@@ -44,7 +44,7 @@ class NewsComponent extends Component {
         this.props.history.push(`/newses/${id}`)
     }
 
-    goBack(){
+    goBack() {
         this.props.history.goBack();
     }
 

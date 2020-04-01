@@ -16,14 +16,14 @@ class NewsListComponent extends Component {
     }
 
     componentDidMount() {
-        this.refreshNews();
+        this.refreshNews()
     }
 
     refreshNews() {
-        NewsDataService.retrieveAllNews()//HARDCODED
+        NewsDataService.retrieveAllNews()
             .then(
                 response => {
-                    console.log(response);
+                    console.log(response)
                     this.setState({news: response.data})
                 }
             )
@@ -53,7 +53,7 @@ class NewsListComponent extends Component {
         this.props.history.push(`/newses/${id}`)
     }
 
-    goBack(){
+    goBack() {
         this.props.history.goBack();
     }
 
@@ -65,6 +65,29 @@ class NewsListComponent extends Component {
                 <span>sorted by editing</span>
                 <br/>
                 <br/>
+
+                <nav>
+                    <ul className="pagination pg-dark">
+                        <li className="page-item">
+                            <a className="page-link" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span className="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li className="page-item active"><a className="page-link">1</a></li>
+                        <li className="page-item"><a className="page-link">2</a></li>
+                        <li className="page-item"><a className="page-link">3</a></li>
+                        <li className="page-item"><a className="page-link">4</a></li>
+                        <li className="page-item"><a className="page-link">5</a></li>
+                        <li className="page-item">
+                            <a className="page-link" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span className="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
                 {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
                 <div className="container">
                     <table className="table">

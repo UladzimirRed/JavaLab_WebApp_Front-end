@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Formik, Form, Field, ErrorMessage} from 'formik';
+import {ErrorMessage, Field, Form, Formik} from 'formik';
 import TagDataService from '../../service/TagDataService';
 
 class TagComponent extends Component {
@@ -48,6 +48,10 @@ class TagComponent extends Component {
         console.log(values);
     }
 
+    goBack() {
+        this.props.history.goBack();
+    }
+
     render() {
 
         let {tagName, id} = this.state
@@ -77,7 +81,13 @@ class TagComponent extends Component {
                                         <label>Tag Name</label>
                                         <Field className="form-control" type="text" name="tagName"/>
                                     </fieldset>
+                                    <br/>
                                     <button className="btn btn-success" type="submit">Save</button>
+                                    <br/>
+                                    <br/>
+                                    <button type="submit" className="btn btn-primary"
+                                            onClick={() => this.goBack()}>Back
+                                    </button>
                                 </Form>
                             )
                         }

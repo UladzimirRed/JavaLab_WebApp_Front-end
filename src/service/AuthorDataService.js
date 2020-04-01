@@ -12,22 +12,18 @@ class AuthorDataService {
     }
 
     retrieveAuthor(id) {
-        //console.log('executed service')
         return axios.get(`${INSTRUCTOR_API_URL}/authors/${id}`);
     }
 
     deleteAuthor(id) {
-        //console.log('executed service')
         return axios.delete(`${INSTRUCTOR_API_URL}/authors/${id}`);
     }
 
     updateAuthor(id, author) {
-        //console.log('executed service')
         return axios.put(`${INSTRUCTOR_API_URL}/authors/${id}`, author);
     }
 
     createAuthor(author) {
-        //console.log('executed service')
         return axios.post(`${INSTRUCTOR_API_URL}/authors/`, author);
     }
 }
